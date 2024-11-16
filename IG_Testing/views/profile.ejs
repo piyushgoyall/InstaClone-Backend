@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="./stylesheets/profile.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="/javascripts/theme.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="profile-header">
+        <img
+          src="/images/profiles/<%= user.profileImage ? user.profileImage : 'def_PFP.png' %>"
+          alt="Profile Picture"
+          class="profile-picture"
+        />
+        <div class="profile-info">
+          <div class="username-edit">
+            <h1><%= username %></h1>
+            <div class="profile-buttons">
+              <a href="/editprofile" class="edit-profile-btn">Edit Profile</a>
+              <!-- Settings Icon -->
+              <a
+                href="javascript:void(0);"
+                class="settings-btn"
+                title="Settings"
+                onclick="openSettings()"
+              >
+                <i class="fas fa-cog"></i>
+              </a>
+            </div>
+          </div>
+          <p class="bio"><%= bio %></p>
+        </div>
+      </header>
+
+      <!-- Settings Modal -->
+      <div id="settingsModal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closeSettings()">&times;</span>
+          <ul class="settings-options">
+            <li><a href="/logout">Logout</a></li>
+            <li>
+              <a href="javascript:void(0);" onclick="confirmDelete()"
+                >Delete Profile</a
+              >
+            </li>
+            <li>
+              <!-- Dark Theme Toggle -->
+              <label class="theme-switch">
+                <input
+                  type="checkbox"
+                  id="darkThemeToggle"
+                  onclick="toggleDarkTheme()"
+                />
+                <span>Dark Theme</span>
+              </label>
+            </li>
+            <li>
+              <a href="javascript:void(0);" onclick="closeSettings()">Close</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>Posts</strong>
+          <span><%= posts.length %></span>
+        </div>
+        <div class="stat" onclick="showFollowers()">
+          <strong>Followers</strong>
+          <span><%= user.followers.length %></span>
+        </div>
+        <div class="stat" onclick="showFollowing()">
+          <strong>Following</strong>
+          <span><%= user.following.length %></span>
+        </div>
+      </div>
+
+      <div class="posts-section">
+        <% if (posts.length === 0) { %>
+        <div
+          class="no-posts-message"
+          style="text-align: center; color: #555; margin-top: 20px"
+        >
+          <h2>Share Photos</h2>
+          <p>When you share photos, they will appear on your profile.</p>
+          <a
+            href="/upload"
+            style="color: #0095f6; font-weight: bold; text-decoration: none"
+            >Share your first photo.</a
+          >
+        </div>
+        <% } else { %>
+        <div class="posts-grid">
+          <% posts.reverse().forEach(post => { %>
+          <div class="post-card">
+            <img
+              src="./images/uploads/<%= post.picture %>"
+              alt="Post Image"
+              class="post-image"
+            />
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+
+      <!-- Modal for Followers -->
+      <div id="followersModal" class="modal">
+        <div class="modal-content">
+          <span onclick="closeFollowers()" style="cursor: pointer; float: right"
+            >&times;</span
+          >
+          <h2>Followers</h2>
+          <ul>
+            <% user.followers.forEach(follower => { %>
+            <li>
+              <a
+                href="/profile/<%= follower.username %>"
+                style="text-decoration: none; color: inherit"
+              >
+                <%= follower.username %>
+              </a>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Modal for Following -->
+      <div id="followingModal" class="modal">
+        <div class="modal-content">
+          <span onclick="closeFollowing()" style="cursor: pointer; float: right"
+            >&times;</span
+          >
+          <h2>Following</h2>
+          <ul>
+            <% user.following.forEach(following => { %>
+            <li>
+              <a
+                href="/profile/<%= following.username %>"
+                style="text-decoration: none; color: inherit"
+              >
+                <%= following.username %>
+              </a>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer class="feed-footer">
+      <a href="/feed"><i class="fas fa-home"></i></a>
+      <a href="#"><i class="fas fa-search"></i></a>
+      <a href="/upload"><i class="fas fa-plus-square"></i></a>
+      <a href="/myProfile"><i class="fas fa-user"></i></a>
+    </footer>
+
+    <script>
+      function showFollowers() {
+        document.getElementById("followersModal").style.display = "block";
+      }
+      function closeFollowers() {
+        document.getElementById("followersModal").style.display = "none";
+      }
+      function showFollowing() {
+        document.getElementById("followingModal").style.display = "block";
+      }
+      function closeFollowing() {
+        document.getElementById("followingModal").style.display = "none";
+      }
+
+      function confirmDelete() {
+        if (
+          confirm(
+            "Are you sure you want to delete your profile? This action is irreversible."
+          )
+        ) {
+          fetch("/myProfile/delete", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                window.location.href = "/goodbye"; // Redirect to goodbye page
+              } else {
+                alert("Failed to delete profile. Please try again.");
+              }
+            })
+            .catch((error) => console.error("Error deleting profile:", error));
+        }
+      }
+
+      function openSettings() {
+        document.getElementById("settingsModal").style.display = "flex";
+      }
+
+      function closeSettings() {
+        document.getElementById("settingsModal").style.display = "none";
+      }
+
+      // Combined window onclick event for closing all modals
+      window.onclick = function (event) {
+        const followersModal = document.getElementById("followersModal");
+        const followingModal = document.getElementById("followingModal");
+        const settingsModal = document.getElementById("settingsModal");
+        if (event.target === followersModal) {
+          closeFollowers();
+        } else if (event.target === followingModal) {
+          closeFollowing();
+        } else if (event.target === settingsModal) {
+          closeSettings();
+        }
+      };
+
+      // Check stored theme preference on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        if (localStorage.getItem("theme") === "dark") {
+          document.body.classList.add("dark-theme");
+          document.getElementById("theme-toggle").checked = true;
+        }
+      });
+
+      // Function to toggle dark theme and save preference
+      function toggleDarkTheme() {
+        const isDark = document.body.classList.toggle("dark-theme");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      }
+    </script>
+  </body>
+</html>

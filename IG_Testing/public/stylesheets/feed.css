@@ -1,0 +1,592 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.feed-header {
+  background-color: #000;
+  border-bottom: 1px solid #444;
+  padding: 5px 20px; /* Padding adjusted */
+  position: sticky;
+  top: 0;
+  height: 40px; /* Height for header */
+}
+
+.container {
+  max-width: 935px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  padding: 0; /* No padding to align items to the edge */
+  width: 100%; /* Full width to align left */
+}
+
+/* Logo and Text */
+.feed-header .logo {
+  font-family: Georgia, "Times New Roman", Times, serif, "Gill Sans",
+    "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 12px; /* Adjusted font size */
+  color: #ffffff;
+  margin-right: 10px; /* Gap between logo and text */
+}
+
+/* User Greeting */
+.user-greeting {
+  margin-left: 0px; /* Pushes greeting text to the far right */
+  color: #ffffff;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  margin-top: 5px;
+}
+
+.logo-img {
+  height: 25px;
+  margin-right: 5px; /* Additional gap between the logo image and the text */
+}
+
+/* Align text and logo to the left */
+.container {
+  justify-content: flex-start; /* Align items to the left */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  position: fixed;
+  top: 40px; /* Below header */
+  left: 0;
+  height: calc(100% - 40px); /* Adjusted height */
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  font-size: 1.1rem;
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.sidebar a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Feed Container */
+.feed-container {
+  margin-left: 0px; /* Offset for sidebar */
+  padding: 20px;
+  margin-top: 20px; /* Space for header */
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.feed {
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Post Styling */
+.post {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 20px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.user-profile {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.post-image {
+  width: 100%;
+  display: block;
+}
+
+.post-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 10px; /* Spacing between icons */
+  cursor: pointer;
+}
+
+.like-count {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.post-caption {
+  padding: 0 10px 10px;
+}
+
+.post-caption .username {
+  font-weight: bold;
+}
+
+/* Footer Styling */
+.feed-footer {
+  background-color: #fff;
+  border-top: 1px solid #dbdbdb;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.feed-footer a {
+  font-size: 24px;
+  color: #262626;
+  text-decoration: none;
+}
+
+.feed-footer a:hover {
+  color: #0095f6;
+}
+
+.user-profile {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Buttons Styling */
+.like-btn,
+.comment-btn,
+.share-btn {
+  cursor: pointer;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.like-count {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.post-actions .icons {
+  display: flex;
+  align-items: center;
+}
+
+/* Modal Styling */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 1400px;
+  height: 80%;
+  background: white;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-post-image {
+  flex: 7; /* 70% for the post image */
+  background-size: cover;
+  background-position: center;
+}
+
+.modal-comments {
+  flex: 3; /* 30% for the comments */
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Comment Input */
+.comment-input {
+  display: flex;
+  margin-top: auto;
+}
+
+.comment-input input {
+  flex: 1;
+  padding: 10px;
+}
+
+.comment-input button {
+  padding: 10px;
+}
+
+/* Suggested users sidebar */
+.random-users-section {
+  position: fixed;
+  top: 40px; /* Aligns below header */
+  right: 0;
+  width: 270px; /* Increased width of the sidebar */
+  height: calc(100vh - 40px); /* Full height minus header */
+  background: #fafafa;
+  padding: 20px;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Allows scrolling if content exceeds height */
+}
+
+.random-users-section h3 {
+  font-size: 1.3rem; /* Increased font size for better readability */
+  font-weight: 600;
+  margin-bottom: 18px; /* Increased bottom margin for spacing */
+  color: #262626;
+}
+
+.random-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0; /* Increased padding for more space around user */
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.random-user:last-child {
+  border-bottom: none;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-pfp {
+  width: 53px; /* Increased size of profile picture */
+  height: 49px; /* Increased size of profile picture */
+  border-radius: 50%;
+  margin-right: 12px; /* Increased margin to space out the pfp */
+}
+
+.username a:link,
+.username a:visited {
+  color: #0095f6;
+  text-decoration: none;
+}
+
+.username a:hover {
+  color: #007bb5;
+}
+
+.random-user button {
+  padding: 5px 12px; /* Slightly increased button padding */
+  font-size: 0.9rem; /* Slightly larger font size for button */
+  color: white;
+  background-color: #0095f6;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.random-user button:hover {
+  background-color: #007bb5;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  position: fixed;
+  top: 40px;
+  left: 0;
+  height: calc(100% - 40px);
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s, padding 0.3s;
+}
+
+.sidebar.shrink {
+  width: 60px;
+  padding: 20px 5px; /* Adjusted padding */
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-logo h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sidebar.shrink .sidebar-logo h1 {
+  display: none;
+}
+
+/* Sidebar Links */
+.sidebar a {
+  font-size: 1.1rem;
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  justify-content: flex-start;
+  transition: background-color 0.2s;
+}
+
+.sidebar.shrink a {
+  justify-content: center; /* Center icons */
+  padding: 10px 0; /* Adjusted padding for better centering */
+}
+
+.sidebar.shrink a span {
+  display: none;
+}
+
+/* Hover Effect */
+.sidebar a:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar.shrink a:hover {
+  background-color: #f0f0f0;
+  padding: 10px; /* Ensures full icon area gets hover background */
+}
+
+.sidebar.shrink .sidebar-logo {
+  justify-content: center;
+  margin-bottom: 20px; /* Ensures space between logo and icons */
+  width: 100%; /* Center-align logo within sidebar */
+}
+
+.sidebar.shrink .sidebar-logo h1 {
+  display: none; /* Hide text in minimized mode */
+}
+
+.sidebar-logo .logo-image {
+  display: none;
+  width: 40px; /* Adjust logo size as needed */
+  height: auto;
+}
+
+.sidebar.shrink .sidebar-logo .logo-image {
+  display: block; /* Show logo in minimized mode */
+  /* margin-bottom: 20px; */
+}
+
+/* Search Sidebar */
+.search-sidebar {
+  width: 300px;
+  position: fixed;
+  top: 40px;
+  left: 60px;
+  height: calc(100% - 40px);
+  background: #f9f9f9;
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.15);
+  border-left: 1px solid #ddd;
+  transition: all 0.3s;
+}
+
+.search-sidebar input[type="text"] {
+  width: 90%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-sidebar input[type="text"]:focus {
+  border-color: #aaa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Style for search results container */
+.search-sidebar .results {
+  width: 100%;
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 70%;
+}
+
+.search-sidebar .results .result-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-sidebar .results .result-item:hover {
+  background-color: #f0f0f0;
+}
+
+.search-sidebar .results .result-item img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.search-sidebar .results .result-item .username {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.search-sidebar .results .result-item .name {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Search Result Container */
+#searchResults {
+  margin-top: 10px;
+}
+
+/* Individual Search Result */
+.search-result {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+/* Profile Image Styling */
+.search-result img {
+  width: 40px; /* Adjust size as needed */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* Username Link Styling */
+.search-result a {
+  text-decoration: none;
+  color: #333; /* Adjust color as needed */
+  font-weight: 500;
+}
+
+.user-result {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.user-result img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-result span {
+  font-size: 1rem;
+}

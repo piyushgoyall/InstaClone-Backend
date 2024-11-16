@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      <%= targetUser.username %> (@<%= targetUser.username %>) • Instagram
+      photos and videos
+    </title>
+    <script src="/javascripts/theme.js"></script>
+    <style>
+      /* Main Layout */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        margin: 0;
+        background-color: #fafafa;
+        color: #262626;
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        max-width: 935px;
+        width: 100%;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        position: relative;
+      }
+      /* Go Back Button */
+      .back-to-feed {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #3897f0;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .back-to-feed:hover {
+        background-color: #2870c8;
+      }
+      /* Profile Image */
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid #dbdbdb;
+      }
+      /* Profile Details */
+      .profile-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+      }
+      .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .profile-header h2 {
+        font-size: 28px;
+        margin: 0;
+        font-weight: 300;
+      }
+      .profile-header button {
+        background-color: #0095f6;
+        color: white;
+        border: none;
+        padding: 5px 9px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .profile-header button:hover {
+        background-color: #007bb5;
+      }
+      /* Stats */
+      .profile-stats {
+        display: flex;
+        gap: 20px;
+        font-size: 16px;
+      }
+      .profile-stats p {
+        margin: 0;
+      }
+      .profile-stats strong {
+        font-weight: 600;
+      }
+      /* Bio */
+      .profile-bio {
+        font-size: 14px;
+      }
+      /* Post Grid */
+      .post-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 30px;
+        width: 100%;
+        max-width: 935px;
+      }
+      .post-grid div {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        position: relative;
+        border-radius: 8px;
+      }
+      .post-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      /* Private Message */
+      .private-message {
+        text-align: center;
+        font-size: 16px;
+        color: #8e8e8e;
+        padding: 40px;
+      }
+      .private-message button {
+        margin-top: 10px;
+        background-color: #0095f6;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .private-message button:hover {
+        background-color: #007bb5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Go Back to Feed Button -->
+      <a href="/feed" class="back-to-feed">Go Back to Feed</a>
+
+      <!-- Profile Picture -->
+      <div>
+        <img
+          src="/images/profiles/<%= targetUser.profileImage || 'def_PFP.png' %>"
+          alt="<%= targetUser.username %>'s profile picture"
+          class="profile-image"
+        />
+      </div>
+
+      <!-- Profile Details -->
+      <div class="profile-details">
+        <div class="profile-header">
+          <h2><%= targetUser.username %></h2>
+          <% if (isFollowing) { %>
+          <button onclick="toggleFollow('<%= targetUser._id %>', this)">
+            Unfollow
+          </button>
+          <% } else if (hasRequestedFollow) { %>
+          <button onclick="toggleFollow('<%= targetUser._id %>', this)">
+            Requested
+          </button>
+          <% } else { %>
+          <button onclick="toggleFollow('<%= targetUser._id %>', this)">
+            Follow
+          </button>
+          <% } %>
+        </div>
+
+        <div class="profile-stats">
+          <p><strong><%= targetUser.posts.length %></strong> posts</p>
+          <p><strong><%= targetUser.followers.length %></strong> followers</p>
+          <p><strong><%= targetUser.following.length %></strong> following</p>
+        </div>
+        <div class="profile-bio">
+          <p><%= targetUser.bio %></p>
+        </div>
+      </div>
+
+      <!-- Conditional Post Display -->
+      <% if (isFollowing) { %>
+      <div class="post-grid">
+        <% targetUser.posts.reverse().forEach(post => { %>
+        <div>
+          <img
+            src="/images/uploads/<%= post.picture %>"
+            alt="Post by <%= targetUser.username %>"
+          />
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <div class="private-message">
+        <p>This account is private</p>
+        <p>Follow to see their photos and videos.</p>
+        <button onclick="toggleFollow('<%= targetUser._id %>', this)">
+          Follow
+        </button>
+      </div>
+      <% } %>
+    </div>
+
+    <script>
+      function toggleFollow(userId, button) {
+        fetch(`/follow/${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              if (data.isFollowing) {
+                button.innerText = "Unfollow"; // Change to Unfollow if following
+              } else if (data.hasRequestedFollow) {
+                button.innerText = "Requested"; // Change to Requested if request is sent
+              } else {
+                button.innerText = "Follow"; // Default to Follow if not following or requested
+              }
+
+              // If unfollowed, refresh the page
+              if (!data.isFollowing && !data.hasRequestedFollow) {
+                window.location.reload(); // Refresh the page to reflect changes
+              }
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+  </body>
+</html>
