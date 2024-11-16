@@ -65,4 +65,4 @@ The footer contains quick access buttons for:
   - Post Editing: Allow users to edit or delete their posts.
 
 ## <u>License</u> 📜
-This project is open-source and available under the [MIT LICENSE](LICENSE.md).
+This project is open-source and available under the [MIT LICENSE](LICENSE).
