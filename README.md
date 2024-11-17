@@ -11,6 +11,9 @@ Welcome to the Instagram Clone Backend project! This backend project replicates 
 ### **🖼️ <u>Feed Page</u>**
 The feed page is the heart of the Instagram clone. Here, users interact with posts and discover new profiles.
 <br />
+<br />
+<img src="images/feed.png" alt="Feed Page" width="700" height="350">
+<br />
 ### **<u>Center Section</u>**: 
   - Displays posts from people you follow. The posts are dynamically loaded from the database and sorted by the most recent.
     
@@ -23,15 +26,24 @@ The feed page is the heart of the Instagram clone. Here, users interact with pos
   - **Search**:
     The search button reveals a smaller sidebar with a search bar that lets you search for users by their usernames.
     If the searched user exists, you can click their profile link to view their posts and follow/unfollow them.
+
+<img src="images/search.png" alt="Feed Page" width="700" height="350">
+    
   - **Messages**: This button is not yet functional but will soon allow users to send and receive direct messages. 💬
   - **Notifications**:
     Displays any pending friend requests.
     You can accept or reject follow requests, which will update the follower/following lists in real time. ✅❌
   - **Create**: Takes you to the page where you can create a new post to share with your followers. 📸
+
+  <img src="images/create.png" alt="Feed Page" width="700" height="350">
+
   - **Profile**: Leads to your personal profile page, where you can view and edit your information.
+
 
 ### **👤 <u>Profile Page</u>**
 Your profile page displays your personal information and activity.
+
+ <img src="images/profile.png" alt="Feed Page" width="700" height="350">
 
 - **Profile Info**: Includes your profile picture (either a default profile picture or one uploaded by the user), username, and bio.
 - **Follower/Following Counts**: Displays the number of people following you and the number of people you follow, along with their usernames.
@@ -41,6 +53,8 @@ Your profile page displays your personal information and activity.
   This is where users can manage their public-facing identity on the platform. 🖼️✏️
 
 ### **<u>⚙️ Profile Settings</u>**
+ <img src="images/settings.png" alt="Feed Page" width="700" height="350">
+ 
   - **Settings Icon**: Next to the Edit Profile button, there is a settings icon that opens a popup with the following options:
   - **Logout**: Logs the user out and returns them to the signin page.
   - **Delete Profile**: Allows users to permanently delete their account and all associated data.
@@ -48,6 +62,8 @@ Your profile page displays your personal information and activity.
   - **Close**: Closes the settings popup.
 
 ### **❤️ <u>Like/Comment System</u>**
+ <img src="images/comment.png" alt="Feed Page" width="700" height="400">
+
   - **Likes**: Users can like posts they enjoy. This interaction is reflected on the post itself.
   - **Comments**: Users can comment on posts. Comments are visible under each post, allowing users to engage more deeply with the content.
   - **Like/Comment Interaction**: This allows users to interact with posts, making the platform more social and engaging. 💬👍
