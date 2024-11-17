@@ -12,7 +12,8 @@ Welcome to the Instagram Clone Backend project! This backend project replicates 
 ### **🖼️ <u>Feed Page</u>**
 The feed page is the heart of the Instagram clone. Here, users interact with posts and discover new profiles.
 
-### **<u>Center Section</u>**: Displays posts from people you follow. The posts are dynamically loaded from the database and sorted by the most recent.
+### **<u>Center Section</u>**: 
+  - Displays posts from people you follow. The posts are dynamically loaded from the database and sorted by the most recent.
 ### **<u>Right Sidebar:</u>**
   - Suggested Users: Shows 5 random user recommendations that users can follow. These suggestions change with each page reload.
   - Follow/Unfollow: Clicking on a suggested user allows you to follow them, which updates your feed with their posts.
