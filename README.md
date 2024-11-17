@@ -16,8 +16,8 @@ The feed page is the heart of the Instagram clone. Here, users interact with pos
   - Displays posts from people you follow. The posts are dynamically loaded from the database and sorted by the most recent.
     
 ### **<u>Right Sidebar:</u>**
-  **- Suggested Users:** Shows 5 random user recommendations that users can follow. These suggestions change with each page reload.
-  **- Follow/Unfollow:** Clicking on a suggested user allows you to follow them, which updates your feed with their posts.
+  - **Suggested Users**: Shows 5 random user recommendations that users can follow. These suggestions change with each page reload.
+  - **Follow/Unfollow**: Clicking on a suggested user allows you to follow them, which updates your feed with their posts.
 
 ### **<u>Left Sidebar:</u>**
   - **Home**: Clicking on the Home icon redirects you to the feed page.
