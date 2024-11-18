@@ -4,9 +4,20 @@ Welcome to the Instagram Clone Backend project! This backend project replicates 
 # Features:
 
 ### **📝 <u>User Authentication</u>**
+
   - **Signup**: New users can register for the platform. Their passwords are securely encrypted using Passport.js, a middleware that simplifies user authentication.<br />
+
+<img src="images/signup.png" alt="Feed Page" width="700" height="350">
+  
   - **Signin**: Users can log in with their credentials. Upon successful authentication, they are redirected to their personalized feed page.<br />
+
+<img src="images/signin.png" alt="Feed Page" width="700" height="350">
+  
   - **Forgot Password**: Users can reset their password through a recovery process, which is fully functional. Users receive an email with instructions to reset their password and regain access to their account.<br />
+
+  <img src="images/fpassword.png" alt="Feed Page" width="700" height="350">
+
+  
 
 ### **🖼️ <u>Feed Page</u>**
 The feed page is the heart of the Instagram clone. Here, users interact with posts and discover new profiles.
@@ -62,7 +73,7 @@ Your profile page displays your personal information and activity.
   - **Close**: Closes the settings popup.
 
 ### **❤️ <u>Like/Comment System</u>**
- <img src="images/comment.png" alt="Feed Page" width="700" height="400">
+ <img src="images/comment.png" alt="Feed Page" width="730" height="400">
 
   - **Likes**: Users can like posts they enjoy. This interaction is reflected on the post itself.
   - **Comments**: Users can comment on posts. Comments are visible under each post, allowing users to engage more deeply with the content.
